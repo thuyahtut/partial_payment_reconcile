@@ -9,6 +9,15 @@
         <xpath expr="//header" position="inside">
             <button string="Manual Reconciliation" name="action_open_manual_reconciliation" type="object" class="oe_highlight"/>
         </xpath>
+
+        <xpath expr="//div[@class='oe_button_box']/button[1]" position="before">
+            <!-- Manual Reconciliation stat button -->
+            <button name="button_open_manual_rec" type="object" class="oe_stat_button" icon="fa-bars" attrs="{'invisible': [('manual_reconciled_count','=', 0)]}">
+                <field name="manual_reconciled_count"/>
+                <span attrs="{'invisible': [('manual_reconciled_count','=', 0)]}">Manual Reconciliation</span>
+            </button>
+        </xpath>
+
         </field>
     </record>
 

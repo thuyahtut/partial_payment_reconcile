@@ -23,6 +23,8 @@ class ManualReconciliation(models.Model):
     invoice_ids = fields.Many2many('account.move', string='Invoices')
     line_ids = fields.One2many('manual.reconciliation.line', 'manual_reconciliation_id', string='Matching')
 
+    state = fields.Selection([('draft', 'New'), ('ready', 'Ready'), ('used', 'Used')], default='draft')
+
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         if self.partner_id:
@@ -32,10 +34,16 @@ class ManualReconciliation(models.Model):
                 values.append((0, 0, {'invoice_id': inv.id}))
             self.update({'line_ids': values})           
 
+    def action_to_ready(self):
+        self.update({'state':'ready'})
+    
+    def action_to_draft(self):
+        self.update({'state':'draft'})
 
     def confirm_action(self):
         balance_receiv = self.payment_id.move_id.line_ids.filtered(lambda l: l.account_id.internal_type == 'receivable')
         for line in self.line_ids:
             invoice = self.env['account.move'].browse(line.invoice_id.id)
             invoice.custom_assign_outstanding_line(balance_receiv.id,line.pay_amount)
+        self.update({'state':'used'})
 

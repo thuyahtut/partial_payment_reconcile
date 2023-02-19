@@ -22,7 +22,10 @@
         <field name="arch" type="xml">
             <form string="">
                 <header>
-                    <button string="RUN" name="confirm_action" type="object" class="oe_highlight"/>
+                    <button string="Set To Draft" name="action_to_draft" attrs="{'invisible': [('state','!=', 'draft')]}" type="object" class="oe_highlight"/>
+                    <button string="Ready" name="action_to_ready" attrs="{'invisible': [('state','!=', 'draft')]}" type="object" class="oe_highlight"/>
+                    <button string="RUN" name="confirm_action" attrs="{'invisible': [('state','!=', 'ready')]}" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ready,used"/>
                 </header>
                 <sheet>
                     <group>

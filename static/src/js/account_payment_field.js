@@ -1,4 +1,4 @@
-odoo.define('sale_advance_payment.payment', function (require) {
+odoo.define('partial_payment_reconcile.payment', function (require) {
     "use strict";
     
     var AbstractField = require('web.AbstractField');

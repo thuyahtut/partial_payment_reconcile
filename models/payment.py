@@ -18,7 +18,7 @@ class AccountPayment(models.Model):
             'type': 'ir.actions.act_window',
             'active_model': 'account.payment',
             'target': 'new',
-            'view_id':self.env.ref('sale_advance_payment.manual_reconciliation_wizard_form').id,
+            'view_id':self.env.ref('partial_payment_reconcile.manual_reconciliation_wizard_form').id,
             'context': {
                 'default_partner_id': self.partner_id.id,
                 'default_payment_id': self.id,

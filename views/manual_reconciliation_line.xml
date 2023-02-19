@@ -59,8 +59,8 @@
         <field name="res_model">manual.reconciliation.wizard</field>
         <field name="view_mode">tree,form</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('sale_advance_payment.manual_reconciliation_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('sale_advance_payment.manual_reconciliation_form')})]"/>
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('partial_payment_reconcile.manual_reconciliation_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('partial_payment_reconcile.manual_reconciliation_form')})]"/>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_payment_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            <button string="Manual Reconciliation" name="action_open_manual_reconciliation" type="object" class="oe_highlight"/>
+        </xpath>
+        </field>
+    </record>
+
+    <record id="manual_reconciliation_wizard_form" model="ir.ui.view">
+        <field name="name">manual_reconciliation_action.form</field>
+        <field name="model">manual.reconciliation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="payment_id" force_save="1" readonly="1"/>
+                            <field name="partner_id" force_save="1" readonly="1"/>
+                            <field name="av_amount" force_save="1" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="current_invoice" string="Current invoices">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="name" />
+                                    <field name="invoice_id" force_save="1" readonly="1"/>
+                                    <field name="currency_id" force_save="1"/>
+                                    <field name="amount_residual" force_save="1"/>
+                                    <field name="pay_amount" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- <footer>
+                    <button name="confirm_action" string="Confirm" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer> -->
+            </form>
+        </field>
+    </record>
+
+    <data noupdate="0">
+        <record id="manual_reconciliation_action" model="ir.actions.act_window">
+            <field name="name">Manual Reconciliation</field>
+            <field name="res_model">manual.reconciliation.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!-- <field name="context" eval="{
+                'mail_post_autofollow': True,
+                'default_composition_mode': 'comment',
+                'default_use_template': True,
+                'default_template_id': ref('account.mail_template_data_payment_receipt'),
+                'custom_layout': 'mail.mail_notification_light',
+            }"/> -->
+            <field name="binding_model_id" ref="model_account_payment"/>
+            <field name="binding_view_types">form</field>
+            <!-- <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/> -->
+        </record>
+    </data>
+
+</odoo>
